@@ -16,8 +16,8 @@ exports.registrarUsuariosServicios = async ({ nombre_empresa, email_empresa, adm
     return await registrarUsuariosModelos(nombre_empresa, email_empresa, admin_empresa, hashedPassword)
 }
 
-exports.iniciarSesionServicios = async ({ nombre_empresa, email_empresa, admin_empresa, password_admin }) => {
-    if (!nombre_empresa || !admin_empresa || !email_empresa || !password_admin) {
+exports.iniciarSesionServicios = async ({ email_empresa, password_admin }) => {
+    if (!email_empresa || !password_admin) {
         throw new Error('El usuario no existe')
     }
     const user = await iniciarSesionModelos(email_empresa)

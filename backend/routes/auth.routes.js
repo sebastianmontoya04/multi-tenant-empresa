@@ -8,7 +8,7 @@ const { registrarUsuariosController,
     eliminarUsuarioController,
     actualizarUsuarioController } = require('../controllers/auth.controller')
 
-router.post('/registrarUsuarios', registrarUsuariosController)
+router.post('/registrarEmpresa', registrarUsuariosController)
 router.post('/iniciarSesion', iniciarSesionController)
 router.post('/crearUsuario', authMiddleware, crearUsuarioController)
 router.get('/mostrarUsuario', authMiddleware, mostrarUsuarioController)

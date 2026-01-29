@@ -26,10 +26,10 @@ exports.iniciarSesionController = async (req, res) => {
         const user = await iniciarSesionServicios(req.body);
         const token = jwt.sign({
             empresa_id: user.empresa_id,
-            nombre_empresa: user.nombre_empresa,
+            // nombre_empresa: user.nombre_empresa,
             admin_empresa: user.admin_empresa,
         }, process.env.JWT_SECRET,
-            { expiresIn: '1h' })
+            { expiresIn: '2h' })
         res.status(200).json({
             msg: 'Inicio de sesion exitoso', token
         })
