@@ -35,7 +35,7 @@ export const Dashboard = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="px-8 py-4 bg-[#2b5aed] text-white rounded-full font-bold shadow-lg hover:bg-blue-700 transition-all hover:scale-105">
-              Probar Gratis Ahora
+              Contactanos
             </button>
 
           </div>
@@ -43,7 +43,7 @@ export const Dashboard = () => {
       </section>
 
       {/* SECCIÓN 2: Problemas (Tarjetas con Hover Rojo) */}
-      <section className="py-24">
+      <section className="py-24 bg-gray-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold">¿Cansado del caos?</h2>
@@ -55,7 +55,7 @@ export const Dashboard = () => {
                 style={{ animationDelay: `${i * 100}ms` }}
                 className="group animate-fade-in-up border border-gray-100 rounded-2xl p-8 bg-white shadow-sm hover:shadow-2xl hover:border-red-100 transition-all duration-500 transform hover:-translate-y-4"
               >
-                <p className="text-center font-bold text-gray-700 mb-8 h-12 flex items-center justify-center group-hover:text-red-600 transition-colors italic">"{text}"</p>
+                <p className="text-center font-bold text-gray-700 mb-8 h-12 flex items-center justify-center group-hover:text-red-600 transition-colors">"{text}"</p>
                 <div className="flex justify-center">
                   <div className="w-14 h-14 rounded-full bg-red-50 flex items-center justify-center group-hover:bg-red-500 group-hover:rotate-[360deg] transition-all duration-700">
                     <span className="text-red-500 group-hover:text-white text-2xl font-bold">✕</span>
@@ -68,7 +68,7 @@ export const Dashboard = () => {
       </section>
 
       {/* SECCIÓN 3: Solución (Tarjetas con Glow Verde) */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-gray-200">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">La solución que tu equipo merece</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">

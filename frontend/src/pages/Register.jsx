@@ -1,7 +1,56 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+import axios from 'axios'
+import API_URL from '../api/fetch'
+import Swal from 'sweetalert2'
 import "../index.css"
 
 export const Register = () => {
+    const navigate = useNavigate()
+    const [nombre_empresa, setNombre_empresa] = useState('')
+    const [email_empresa, setEmail_empresa] = useState('')
+    const [admin_empresa, setAdmin_empresa] = useState('')
+    const [password_admin, setPassword_admin] = useState('')
+
+    useEffect(()=> {
+        const token = localStorage.getItem("token")
+        if (token){
+            navigate("/dashboardHome", {replace: true})
+        }
+    }, [navigate])
+
+    const handleForm = async (e) => {
+        e.preventDefault()
+        const empresa = {
+            nombre_empresa: nombre_empresa.trim(),
+            email_empresa: email_empresa.trim(),
+            admin_empresa: admin_empresa.trim(),
+            password_admin: password_admin.trim()
+        }
+        try {
+            await axios.post(`${API_URL}/api/registrarEmpresa`, empresa)
+            Swal.fire({
+                title: "Empresa registrada exitosamente!",
+                icon: "success",
+                draggable: true
+            });
+            setNombre_empresa('')
+            setEmail_empresa('')
+            setAdmin_empresa('')
+            setPassword_admin('')
+            navigate('/iniciarSesion')
+        } catch (error) {
+            Swal.fire({
+                title: "Los campos no pueden estar vacios!",
+                icon: "error",
+                draggable: true
+            });
+            setNombre_empresa('')
+            setEmail_empresa('')
+            setAdmin_empresa('')
+            setPassword_admin('')
+        }
+    }
     return (
         <div className="min-h-screen bg-[#f8fafc] flex flex-col items-center justify-center p-4 relative overflow-hidden">
             <div className="absolute top-0 -left-20 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob"></div>
@@ -19,13 +68,15 @@ export const Register = () => {
                     </p>
                 </div>
 
-                <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+                <form className="space-y-5" onSubmit={handleForm}>
                     <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-2">Nombre de la empresa</label>
                         <input
                             type="text"
                             placeholder="Ej. Romentech Solutions"
                             className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#2b5aed] focus:border-transparent outline-none transition-all bg-gray-50"
+                            value={nombre_empresa}
+                            onChange={(e) => setNombre_empresa(e.target.value)}
                         />
                     </div>
                     <div>
@@ -34,6 +85,8 @@ export const Register = () => {
                             type="text"
                             placeholder="Ej. sebastian montoya"
                             className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#2b5aed] focus:border-transparent outline-none transition-all bg-gray-50"
+                            value={admin_empresa}
+                            onChange={(e) => setAdmin_empresa(e.target.value)}
                         />
                     </div>
                     <div>
@@ -42,6 +95,8 @@ export const Register = () => {
                             type="email"
                             placeholder="correo@ejemplo.com"
                             className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#2b5aed] focus:border-transparent outline-none transition-all bg-gray-50"
+                            value={email_empresa}
+                            onChange={(e) => setEmail_empresa(e.target.value)}
                         />
                     </div>
                     <div>
@@ -53,6 +108,8 @@ export const Register = () => {
                             type="password"
                             placeholder="••••••••"
                             className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#2b5aed] focus:border-transparent outline-none transition-all bg-gray-50"
+                            value={password_admin}
+                            onChange={(e) => setPassword_admin(e.target.value)}
                         />
                     </div>
 
@@ -69,7 +126,7 @@ export const Register = () => {
 
                             className="ml-2 text-[#2b5aed] font-bold hover:underline"
                         >
-                            Inicia sesión
+                            <Link to="/iniciarSesion">Iniciar Sesion</Link>
                         </button>
                     </p>
                 </div>
@@ -77,7 +134,7 @@ export const Register = () => {
 
             {/* Botón para volver a la Home */}
             <button className="mt-8 text-gray-400 hover:text-gray-600 flex items-center gap-2 transition-colors">
-                <span>←</span> Volver a la página principal
+                <Link to="/">← Volver a la página principal</Link>
             </button>
         </div>
     )
