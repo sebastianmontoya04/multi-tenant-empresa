@@ -26,7 +26,6 @@ exports.iniciarSesionController = async (req, res) => {
         const user = await iniciarSesionServicios(req.body);
         const token = jwt.sign({
             empresa_id: user.empresa_id,
-            // nombre_empresa: user.nombre_empresa,
             admin_empresa: user.admin_empresa,
         }, process.env.JWT_SECRET,
             { expiresIn: '2h' })
