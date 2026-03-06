@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom'; // Importamos useLocation para detectar la ruta actual
+import { Link, useLocation, useNavigate } from 'react-router-dom'; // Importamos useLocation para detectar la ruta actual
 import { LayoutDashboard, Users, Briefcase, CheckSquare, Image as ImageIcon, UserCircle, BarChart3, Menu, X, LogOut } from 'lucide-react';
-
 export const Sidebar = () => {
+    const navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation(); // Esto nos dice en qué URL estamos
 
@@ -16,6 +16,11 @@ export const Sidebar = () => {
         { id: 'reportes', label: 'Reportes', icon: <BarChart3 size={20} />, link: '/reportes' },
         { id: 'perfil', label: 'Mi perfil', icon: <UserCircle size={20} />, link: '/miperfil' },
     ];
+
+    const handleLogout = () => {
+        localStorage.removeItem("token")
+        navigate("/", {replace: true})
+    }
 
     return (
         <>
@@ -44,7 +49,7 @@ export const Sidebar = () => {
                     <img src="logoAzul.png" alt="Logo" />
                 </div>
 
-                <nav className="flex-grow px-4 space-y-2 mt-4">
+                <nav className="grow px-4 space-y-2 mt-4">
                     {menuItems.map((item) => (
                         <Link
                             key={item.id}
@@ -64,7 +69,8 @@ export const Sidebar = () => {
                 </nav>
 
                 <div className="p-4 border-t border-gray-50">
-                    <button className="w-full flex items-center gap-4 px-4 py-3 rounded-2xl text-red-500 hover:bg-red-50 transition-colors">
+                    <button className="w-full flex items-center gap-4 px-4 py-3 rounded-2xl text-red-500 hover:bg-red-50 transition-colors"
+                        onClick={handleLogout}>
                         <LogOut size={20} />
                         <span className="font-semibold text-sm">Salir</span>
                     </button>
